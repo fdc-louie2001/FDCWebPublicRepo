@@ -97,7 +97,6 @@
 </div>
 
 
-
 <script>
 	$(document).ready(function() {
 		$('#profilePicInput').on('change', function(event) {
