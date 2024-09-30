@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Application level Controller
  *
@@ -19,6 +20,8 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
+
+
 App::uses('Controller', 'Controller');
 
 /**
@@ -30,46 +33,18 @@ App::uses('Controller', 'Controller');
  * @package		app.Controller
  * @link		https://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
-class AppController extends Controller {
-    // this will tell cakek to support php files for the view for rendering
-    public $ext = '.php';
-
-    // include the Post Model
-    public $uses = array(
-        'Post'
-    );
-
-    // - include components
-    public $components = array(
-        'Flash',
-        'Auth' => array(
-            // if the user is logged in
-            'loginRedirect' => array(
-                'controller' => 'users',
-                'action' => 'index'
-            ),
-
-            // if teh user is not logged in AND accesses a forbidden action,
-            'logoutRedirect' => array(
-                'controller' => 'pages',
-                'action' => 'display',
-                'home'
-            ),
-            'authenticate' => array(
-                'Form' => array(
-                    // 'passwordHasher' => 'Blowfish',
-                    // if you want to customize the fields for logging in
-                    // 'fields'=>array('username'=>'email','password'=>'password')
-                )
-            )
-        )
-    );
-    
-    public function beforeFilter(){
-        parent::beforeFilter();
-        
-        // global restriction
-        // $this->Auth->allow('index', 'view', 'add');
-        $this->set('currentUser', $this->Auth->user());
-    }
+class AppController extends Controller
+{
+	public $components = array(
+		'Session',
+		'Auth' => array(
+			'authenticate' => array(
+				'Form' => array(
+					'fields' => array(
+						'username' => 'email',
+					)
+				)
+			)
+		)
+	);
 }
